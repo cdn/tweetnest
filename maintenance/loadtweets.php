@@ -82,7 +82,7 @@
 		
 		// Retrieve tweets
 		for($i = 0; $i < $pages; $i++){
-			$path = "1/statuses/user_timeline.json?" . $p . "&include_rts=true&count=" . $maxCount . ($sinceID ? "&since_id=" . $sinceID : "") . ($maxID ? "&max_id=" . $maxID : "");
+			$path = "1/statuses/user_timeline.json?" . $p . "&include_entities=true&include_rts=true&count=" . $maxCount . ($sinceID ? "&since_id=" . $sinceID : "") . ($maxID ? "&max_id=" . $maxID : "");
 			echo l("Retrieving page <strong>#" . ($i+1) . "</strong>: <span class=\"address\">" . ls($path) . "</span>\n");
 			$data = $twitterApi->query($path);
 			if(is_array($data) && $data[0] === false){ dieout(l(bad("Error: " . $data[1] . "/" . $data[2]))); }
@@ -134,7 +134,7 @@
 		$pages = ceil($total / $maxCount); // Resetting these
 		$favs  = array();
 		for($i = 0; $i < $pages; $i++){
-			$path = "1/favorites.json?" . $p . "&count=" . $maxCount . ($i > 0 ? "&page=" . $i : "");
+			$path = "1/favorites.json?" . $p . "&include_entities=true&count=" . $maxCount . ($i > 0 ? "&page=" . $i : "");
 			echo l("Retrieving page <strong>#" . ($i+1) . "</strong>: <span class=\"address\">" . ls($path) . "</span>\n");
 			$data = $twitterApi->query($path);
 			if(is_array($data) && $data[0] === false){ dieout(l(bad("Error: " . $data[1] . "/" . $data[2]))); }
